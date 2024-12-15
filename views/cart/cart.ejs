@@ -1,0 +1,229 @@
+<% layout('./layouts/boilerPlate') %>
+
+<style>
+    html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #313131;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #212121;
+    border-bottom: 2px solid #FF7F00;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    height: 50px;
+}
+
+#header-img {
+    height: 50px;
+    width: auto;
+}
+
+#nav-bar {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 12px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.nav-link:hover {
+    background-color: #FF7F00;
+    color: #000000;
+    cursor: pointer;
+}
+
+.nav-link:active {
+    background-color: #FFFFFF;
+    color: #FF7F00;
+    border: 1px solid #FF7F00;
+}
+
+#menu-btn {
+    display: none;
+    background-color: #FF7F00;
+    color: #000000;
+    font-size: 18px;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    #menu-btn {
+        display: block;
+    }
+
+    #nav-bar {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        margin-top: 10px;
+    }
+
+    #nav-bar.show {
+        display: flex;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 12px 20px;
+    }
+}
+
+.container {
+    max-width: 800px;
+    margin: 80px auto 20px !important ; 
+    padding: 20px 20px 40px;
+    background-color: #F2E0D0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    object-fit: contain;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #E0E0E0;
+    object-fit: contain;
+
+}
+
+.card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 16px;
+    color: #555555;
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #FF7F00;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #E06500;
+    color: #FFFFFF;
+}
+
+.checkout-section {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-section .total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.checkout-section .btn-primary {
+    padding: 12px 30px;
+}
+</style>
+
+<header id="header">
+    <a class="navbar-brand" href="/products">
+        <img id="header-img" src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-graphic-card-gaming-ecommerce-flaticons-flat-flat-icons.png" alt="external-graphic-card-gaming-ecommerce-flaticons-flat-flat-icons"/>
+    </a>
+    <button id="menu-btn" aria-label="Toggle navigation">☰</button>
+    <nav id="nav-bar">
+        <a class="nav-link" href="/products">Products</a>
+        <a class="nav-link" href="/user/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+
+        <% if (!currentUser) { %>
+            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/register">Sign Up</a>
+        <% } else { %>
+            <a class="nav-link" href="/logout">Logout</a>
+            <% if (currentUser && currentUser.role === 'seller') { %>
+                <a class="nav-link" href="/product/new">New Product</a>
+            <% } %>
+        <% } %>
+    </nav>
+</header>
+
+<div class="container mt-4">
+    <h2>Your Cart</h2>
+    <div class="row">
+        <% user.cart.forEach(product => { %>
+            <div class="col-lg-4 col-md-6 mb-4" >
+                <div class="card">
+                    <img src="<%= product.img %>" class="card-img-top" alt="<%= product.name %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= product.name %></h5>
+                        <p class="card-text"><%= product.price %></p>
+                        <a href="/product/<%= product._id %>" class="btn btn-primary">View Product</a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <% if (user.cart.length > 0) { %>
+        <div class="checkout-section">
+            <span class="total">Total: <%= user.cart.reduce((total, product) => total + product.price, 0) %></span>
+            <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
+        </div>
+    <% } else { %>
+        <p>Your cart is empty!</p>
+    <% } %>
+</div>

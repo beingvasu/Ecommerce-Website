@@ -1,0 +1,321 @@
+<% layout('./layouts/boilerPlate') %>
+
+<style>
+    
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #313131;
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+    background-color: #212121;
+    border-bottom: 2px solid #FF7F00;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    height: 50px;
+}
+
+#header-img {
+    height: 50px;
+    width: auto;
+}
+
+#nav-bar {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 12px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.nav-link:hover {
+    background-color: #FF7F00;
+    color: #000000;
+    cursor: pointer;
+}
+
+.nav-link:active {
+    background-color: #FFFFFF;
+    color: #FF7F00;
+    border: 1px solid #FF7F00;
+}
+
+#menu-btn {
+    display: none;
+    background-color: #FF7F00;
+    color: #000000;
+    font-size: 18px;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    #menu-btn {
+        display: block;
+    }
+
+    #nav-bar {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        margin-top: 10px;
+    }
+
+    #nav-bar.show {
+        display: flex;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 12px 20px;
+    }
+}
+
+.container {
+    margin-top: 100px;
+    padding: 20px;
+    background-color: #E3D8CF;
+}
+
+/* Product  */
+.card {
+    background: #E5E5E5;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    max-height: 400px;
+    object-fit: contain;
+    width: 100%;
+}
+
+.card-body {
+    padding: 20px;
+    background-color: #E5E5E5;
+    color: #000;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 18px;
+    color: #555555;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #FF7F00;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #e66a00;
+}
+
+.btn-danger {
+    background-color: #FF3B3B;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #e33333;
+}
+
+/* Review */
+.review-section {
+    margin-top: 20px;
+}
+
+.review-section h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.review-section .form-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+.review-section textarea {
+    width: 100%;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #E5E5E5;
+}
+
+.review-section button {
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin: 13px 0 13px 0;
+}
+
+.review-section button:hover {
+    background-color: #218838;
+}
+
+.review-card {
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.review-card .starability-result {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FF7F00;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .card-body {
+        text-align: center;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .review-section h1 {
+        font-size: 24px;
+    }
+}
+</style>
+
+<header id="header">
+    <a class="navbar-brand" href="/products">
+        <!-- <img id="header-img" src="https://img.icons8.com/ios-filled/50/FFFFFF/controller.png" alt="controller"/> -->
+        <img id="header-img" src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-graphic-card-gaming-ecommerce-flaticons-flat-flat-icons.png" alt="external-graphic-card-gaming-ecommerce-flaticons-flat-flat-icons"/>
+    </a>
+
+    <button id="menu-btn" aria-label="Toggle navigation">☰</button>
+
+    <nav id="nav-bar">
+        <a class="nav-link" href="/products">Products</a>
+        <a class="nav-link" href="/user/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        <% if (!currentUser) { %>
+            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/register">Sign Up</a>
+        <% } else { %>
+            <a class="nav-link" href="/logout">Logout</a>
+            <% if (currentUser && currentUser.role === 'seller') { %>
+                <a class="nav-link" href="/product/new">New Product</a>
+            <% } %>
+        <% } %>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="row">
+        <!-- Product Card -->
+        <div class="col-lg-6">
+            <div class="card">
+                <img src="<%= selectedProduct.img %>" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title"><%= selectedProduct.name %></h5>
+                    <h6 class="card-text"><img width="16" height="18" style="margin-bottom: 2px;" src="https://img.icons8.com/material-sharp/24/rupee.png" alt="rupee"/><%= selectedProduct.price %></h6>
+                    <p><%= selectedProduct.desc %></p>
+                    <div class="btn-group">
+                        <form action="/user/<%= selectedProduct._id %>/add" method="post">
+                            <button type="submit" class="btn btn-primary">Add to cart</button>
+                        </form>
+                        <!-- <a href="#" class="btn btn-danger">Buy</a> -->
+                    </div>
+                    <% if (currentUser && currentUser.role === 'seller') { %>
+                        <a href="/product/<%= selectedProduct._id %>/edit" class="btn btn-primary">Edit</a>
+                    <% } %>  
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Section -->
+        <div class="col-lg-6 review-section">
+            <h1>Leave a Review</h1>
+            <form action="/product/<%= selectedProduct._id %>/reviews" method="post">
+                <div>
+                    <fieldset class="starability-basic">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="rating" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="rating" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="rating" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="rating" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="rating" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                </div>
+                <label for="review" class="form-label">Your Review</label>
+                <textarea name="comment" class="form-control" id="review" rows="5"></textarea>
+                <button type="submit" class="btn btn-success">Submit Review</button>
+            </form>
+            <% for (let r of selectedProduct.reviews) { %>
+                <div class="review-card">
+                    <p class="starability-result" data-rating="<%= r.rating %>"></p>
+                    <h6 style="font-weight: bold;"><%= r.comment %></h6>
+                    <h6><%= r.createdAt.toDateString() %></h6>
+
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+

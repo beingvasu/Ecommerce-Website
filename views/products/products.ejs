@@ -1,0 +1,454 @@
+<% layout('./layouts/boilerPlate') %>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #F0E7E1;
+    font-family: Arial, sans-serif;
+}
+
+/* header  */
+header {
+    background-color: #212121;
+    border-bottom: 2px solid #FF7F00;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    height: 50px;
+}
+
+#header-img {
+    height: 50px;
+    width: auto;
+}
+
+#nav-bar {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 6px 12px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.nav-link:hover {
+    background-color: #FF7F00;
+    color: #000000;
+    cursor: pointer;
+}
+
+.nav-link:active {
+    background-color: #FFFFFF;
+    color: #FF7F00;
+    border: 1px solid #FF7F00;
+}
+
+#menu-btn {
+    display: none;
+    background-color: #FF7F00;
+    color: #000000;
+    font-size: 18px;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    #menu-btn {
+        display: block;
+    }
+
+    #nav-bar {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        margin-top: 10px;
+    }
+
+    #nav-bar.show {
+        display: flex;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 12px 20px;
+    }
+}
+
+/* section 1 */
+#features {
+    padding: 100px 20px;
+    margin-top: 40px;
+    background-color: #212121 !important;
+    color: #f1f1f1;
+    text-align: center;
+}
+
+#features h2 {
+    font-size: 3rem;
+    color: #FF7F00;
+    margin-bottom: 25px;
+}
+
+#features p {
+    font-size: 1.1rem;
+    color: #f1f1f1;
+    margin-bottom: 40px;
+}
+
+#feature-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+}
+
+.feature-img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    border-radius: 5px;
+}
+
+.feature h3 {
+    font-size: 22px;
+    margin-top: 15px;
+    color: #333;
+}
+
+.feature p {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+/* card styling */
+.card {
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1);
+}
+
+.card-img-top {
+    border-radius: 10px 10px 0 0;
+    height: 200px;
+    object-fit: contain;
+}
+
+.card-body {
+    padding: 20px;
+    background-color: #E3D8CF;
+    
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #000 !important;
+}
+
+@media (max-width: 768px) {
+    #features h2 {
+        font-size: 2rem;
+    }
+
+    .card-img-top {
+        height: 220px;
+    }
+
+    .feature {
+        width: 200px;
+    }
+
+    .feature h3 {
+        font-size: 20px;
+    }
+
+    .feature p {
+        font-size: 14px;
+    }
+}
+
+/* products  */ 
+.container.my-5 {
+    background-color: #212121;
+    padding: 50px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    width: 100vw;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin-bottom: 30px;
+    background-color: #333;
+    color: #fff;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    background-color: #444;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #FF7F00; 
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #bbb;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card-text.text-muted {
+    color: white !important;
+}
+
+
+.card-img-top {
+    width: 100%; 
+    height: 320px;
+    object-fit: contain; 
+    /* border-radius: 5px;  */
+    background-color: #fff;
+}
+
+.card {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #FF7F00;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.btn {
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.card-img-top:hover {
+    filter: brightness(1); 
+}
+
+.btn-primary {
+    background-color: #FF7F00;
+    border-color: #FF7F00;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1rem;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #d76a00;
+    border-color: #d76a00;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+}
+
+
+@media (max-width: 768px) {
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .card-img-top {
+        height: 200px;
+    }
+
+    .container.my-5 {
+        padding: 30px 10px;
+    }
+}
+</style>
+
+<header id="header">
+    <a class="navbar-brand" href="/products">
+        <img id="header-img" src="https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-graphic-card-gaming-ecommerce-flaticons-flat-flat-icons.png" alt="external-graphic-card-gaming-ecommerce-flaticons-flat-flat-icons"/>
+    </a>
+
+    <button id="menu-btn" aria-label="Toggle navigation">☰</button>
+
+    <nav id="nav-bar">
+        <a class="nav-link" href="/products">Products</a>
+        <a class="nav-link" href="/user/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        <% if (!currentUser) { %>
+            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/register">Sign Up</a>
+        <% } else { %>
+            <a class="nav-link" href="/logout">Logout</a>
+            <% if (currentUser && currentUser.role === 'seller') { %>
+                <a class="nav-link" href="/product/new">New Product</a>
+            <% } %>
+        <% } %>
+    </nav>
+</header>
+
+
+
+
+<section id="features" class="bg-dark text-white py-5">
+    <div class="container text-center">
+        <h2 class="display-4 mb-4">Experience High-End Gaming with Our Graphics Cards</h2>
+        <p class="lead mb-5">We offer a range of powerful graphics cards designed to enhance your gaming and creative experiences. Whether you're a professional gamer or a content creator, our graphics cards provide the performance you need. Here's what makes our graphics cards stand out:</p>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card bg-secondary border-0 text-white h-100">
+                    <!-- <img class="card-img-top" src="images/feature1.png" alt="Feature 1"> -->
+                    <div class="card-body">
+                        <h5 class="card-title">Ultimate Performance</h5>
+                        <p class="card-text">Our graphics cards deliver exceptional performance for both gaming and rendering, enabling smooth gameplay and efficient work for creative tasks.</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-lg-4 col-md-6">
+                <div class="card bg-secondary border-0 text-white h-100">
+                    <!-- <img class="card-img-top" src="images/feature2.png" alt="Feature 2"> -->
+                    <div class="card-body">
+                        <h5 class="card-title">Advanced Cooling Technology</h5>
+                        <p class="card-text">Stay cool during intense gaming sessions with cutting-edge cooling systems that maintain optimal performance without overheating.</p>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Fix for top padding issue -->
+            <div class="col-lg-4 col-md-6 mt-4">
+                <div class="card bg-secondary border-0 text-white h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Future-Proofing</h5>
+                        <p class="card-text">Our graphics cards are built with the latest technology to ensure compatibility with upcoming gaming titles and creative applications.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div id="extra">
+<div class="container my-5">
+    <!-- New Products Header -->
+    <h2 class="text-center text-uppercase mb-4" style="color: #FF7F00; font-size: 2rem; font-weight: bold;">New Products</h2>
+
+    <div class="row">
+        <% for (let i of Products) { %>
+            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <!-- Product Image -->
+                    <img src="<%= i.img %>" class="card-img-top" alt="<%= i.name %>">
+                    <div class="card-body">
+                        <!-- Product Title -->
+                        <h5 class="card-title text-center text-uppercase fw-bold" style="font-size: 1.1rem; color: #000;"><%= i.name %></h5>
+                        <!-- Product Price -->
+                        <p class="card-text text-center text-muted" style="font-size: 1rem; color: #000 !important;"><img width="16" height="18" style="margin-bottom: 2px;" src="https://img.icons8.com/material-sharp/24/rupee.png" alt="rupee"/><%= i.price %></p>
+                        
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="/product/<%= i._id %>" class="btn btn-primary w-100">View</a>
+                        </div>
+
+                        <!-- Delete Button (For Sellers) -->
+                        <% if (currentUser && currentUser.role === 'seller') { %>
+                        <form action="/product/<%= i._id %>?_method=DELETE" method="post" class="mt-3">
+                            <button type="submit" class="btn btn-danger w-100">Delete</button>
+                        </form>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+</div>
+
+<!-- Add the JS here -->
+<script>
+    // Grab elements
+    const menuBtn = document.getElementById('menu-btn');
+    const navBar = document.getElementById('nav-bar');
+
+    // Toggle the navigation menu visibility
+    menuBtn.addEventListener('click', function() {
+        navBar.classList.toggle('show');
+    });
+</script>
