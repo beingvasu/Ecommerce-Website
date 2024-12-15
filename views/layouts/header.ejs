@@ -1,0 +1,119 @@
+
+<% layout('./header') %>
+
+
+    <style>
+        html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #F5F5F5;
+        font-family: Arial, sans-serif;
+    }
+    
+    header {
+        background-color: #212121;
+        border-bottom: 2px solid #FF7F00;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1000;
+    }
+    
+    #header-img {
+        height: 40px;
+        width: auto;
+    }
+    
+    #nav-bar {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .nav-link {
+        color: #FFFFFF;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 6px 12px;
+        transition: all 0.3s ease;
+        border-radius: 4px;
+    }
+    
+    .nav-link:hover {
+        background-color: #FF7F00;
+        color: #000000;
+        cursor: pointer;
+    }
+    
+    .nav-link:active {
+        background-color: #FFFFFF;
+        color: #FF7F00;
+        border: 1px solid #FF7F00;
+    }
+    
+    #menu-btn {
+        display: none;
+        background-color: #FF7F00;
+        color: #000000;
+        font-size: 18px;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    @media (max-width: 700px) {
+        #menu-btn {
+            display: block;
+        }
+    
+        #nav-bar {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+    
+        #nav-bar.show {
+            display: flex;
+        }
+    
+        .nav-link {
+            width: 100%;
+            padding: 12px 20px;
+        }
+    }
+    </style>
+
+    
+<header id="header">
+    <a class="navbar-brand" href="#">
+        <img id="header-img" src="https://img.icons8.com/ios-filled/50/FFFFFF/controller.png" alt="controller"/>
+    </a>
+
+    <button id="menu-btn" aria-label="Toggle navigation">☰</button>
+
+    <nav id="nav-bar">
+        <a class="nav-link" href="/products">Home</a>
+        <a class="nav-link" href="/user/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+
+        <% if (!currentUser) { %>
+            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/register">Sign Up</a>
+        <% } else { %>
+            <a class="nav-link" href="/logout">Logout</a>
+            <% if (currentUser && currentUser.role === 'seller') { %>
+                <a class="nav-link" href="/product/new">New Product</a>
+            <% } %>
+        <% } %>
+    </nav>
+</header>
+
+
