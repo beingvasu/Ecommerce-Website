@@ -8,6 +8,10 @@ const Review = require('../models/Review')
 
 const { validateProduct , isLoggedIn, isSeller, isProductAuthor } = require('../middleware')
 
+router.get('/' , (req , res)=>{
+    res.redirect('/products')
+})
+
 router.get('/products', isLoggedIn, async (req, res) => {
     try {
         // Fetch the products from the database
