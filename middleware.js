@@ -8,15 +8,7 @@ const validateProduct = async (req, res, next) => {
     const { error } = productSchema.validate({ name, img, price, desc }); // Joi validation
 
     if (error) {
-        res.status(400).json({ 
-            message: 'Validation error', 
-            details: error.details.map(detail => detail.message)
-        })
-        return setTimeout(() => {
-            res.redirect('/products');
-        }, 1000);
-
-    
+        return res.redirect('products')
     }
     
     next();
@@ -27,16 +19,7 @@ const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate({ rating, comment }); // Joi validation
 
     if (error) {
-        res.status(400).send(`
-            <p>Validation error: ${error.details[0].message}</p>
-            <p>Redirecting to <a href="/products">Products</a> in 1 second...</p>
-        `);
-
-        setTimeout(() => {
-            res.redirect('/products');
-        }, 1000);
-
-        return;
+        return res.redirect(`/product/${id}`)
     }
     next();
 };
@@ -64,19 +47,15 @@ const isProductAuthor = async (req, res, next) => {
     try {
         const product = await Product.findById(id);
         if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
+            return res.redirect('/products');
         }
         if (!product.author.equals(req.user._id)) {
-            return res.status(403).json({ message: 'Unauthorized access' });
+            return res.redirect('/products');
         }
         next(); // Allow the request to proceed
     } catch (error) {
-        console.error('Error in isProductAuthor:', error);
-        res.status(500).json({ message: 'Server error' });
-        setTimeout(() => {
-            res.redirect('/products');
-        }, 1000);
-        return
+        return res.redirect('/products');
+        
     }
 };
 

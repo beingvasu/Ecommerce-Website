@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const ejsMate = require('ejs-mate');
@@ -17,7 +18,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // MongoDB connection
-mongoose.connect('mongodb://127.0.0.1:27017/ecommProject')
+mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/ecommProject')
   .then(() => console.log("DB connected"))
   .catch((err) => console.error("DB connection error:", err));
 
@@ -36,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Session and flash setup
 app.use(session({
-  secret: 'your-secret-key',
+  secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: true,
   cookie: { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 }
@@ -69,7 +70,7 @@ app.use(authRoutes);
 app.use(cartRoutes);
 
 // Start server
-const portNum = 8080;
+const portNum = process.env.PORT || 8080;
 app.listen(portNum, () => {
   console.log(`Server running on port ${portNum}`);
 });
